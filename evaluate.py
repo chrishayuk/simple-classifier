@@ -14,6 +14,9 @@ def evaluate(model, dataloader):
     true_labels = []
     predicted_labels = []
 
+    # Set model to evaluation mode
+    model.eval()
+
     # Collect predictions and true labels
     with torch.no_grad():
         for inputs, labels in dataloader:
@@ -27,17 +30,14 @@ def evaluate(model, dataloader):
     display_classification_metrics(true_labels, predicted_labels)
 
 def parse_args():
-    # setup the parser
     parser = argparse.ArgumentParser(description="Evaluate a trained binary classifier on a test dataset")
 
-    # set the arguments
     parser.add_argument('--model_path', type=str, default='output/model.pth', help="Path to the saved model file (.pth)")
     parser.add_argument('--test_file', type=str, default='output/test_data.jsonl', help="Path to the test data JSONL file")
     parser.add_argument('--input_size', type=int, default=10, help="Number of input features")
-    parser.add_argument('--hidden_size', type=int, default=5, help="Number of hidden layer units")
+    parser.add_argument('--hidden_size', type=int, default=64, help="Number of hidden layer units")
     parser.add_argument('--batch_size', type=int, default=10, help="Batch size for DataLoader")
 
-    # parse
     return parser.parse_args()
 
 def main():
@@ -51,13 +51,14 @@ def main():
     # Initialize the model with specified input and hidden layer sizes
     model = SimpleClassifier(args.input_size, args.hidden_size, num_classes=2)
 
-    # Load model weights with weights_only=True to suppress FutureWarning
+    # Load model weights
     if os.path.exists(args.model_path):
         # load the model weights
         model.load_state_dict(torch.load(args.model_path, weights_only=True))
         print(f"Loaded model from {args.model_path}")
     else:
         raise FileNotFoundError(f"Model file not found: {args.model_path}")
+    
 
     # Evaluate the model on the test dataset
     evaluate(model, test_dataloader)
