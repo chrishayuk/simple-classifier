@@ -45,7 +45,7 @@ def parse_args():
     parser.add_argument('--test_file', type=str, default='output/test_data.jsonl', help="Path to test data JSONL file")
     parser.add_argument('--input_size', type=int, default=10, help="Number of input features")
     parser.add_argument('--hidden_size', type=int, default=64, help="Number of units in each hidden layer")
-    parser.add_argument('--num_hidden_layers', type=int, default=5, help="Number of hidden layers in the model")
+    parser.add_argument('--num_hidden_layers', type=int, default=7, help="Number of hidden layers in the model")
     parser.add_argument('--learning_rate', type=float, default=0.0001, help="Learning rate")
     parser.add_argument('--num_epochs', type=int, default=100, help="Number of training epochs")
     parser.add_argument('--batch_size', type=int, default=10, help="Batch size for DataLoader")

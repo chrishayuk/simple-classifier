@@ -36,6 +36,7 @@ def parse_args():
     parser.add_argument('--test_file', type=str, default='output/test_data.jsonl', help="Path to the test data JSONL file")
     parser.add_argument('--input_size', type=int, default=10, help="Number of input features")
     parser.add_argument('--hidden_size', type=int, default=64, help="Number of hidden layer units")
+    parser.add_argument('--num_hidden_layers', type=int, default=7, help="Number of hidden layers in the model")
     parser.add_argument('--batch_size', type=int, default=10, help="Batch size for DataLoader")
 
     return parser.parse_args()
@@ -49,7 +50,12 @@ def main():
     test_dataloader = DataLoader(test_dataset, batch_size=args.batch_size, shuffle=False)
 
     # Initialize the model with specified input and hidden layer sizes
-    model = SimpleClassifier(args.input_size, args.hidden_size, num_classes=2)
+    model = SimpleClassifier(
+        input_size=args.input_size, 
+        hidden_size=args.hidden_size, 
+        num_classes=2, 
+        num_hidden_layers=args.num_hidden_layers
+    )
 
     # Load model weights
     if os.path.exists(args.model_path):
