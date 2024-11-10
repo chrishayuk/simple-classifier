@@ -51,9 +51,10 @@ def main():
     # Initialize the model with specified input and hidden layer sizes
     model = SimpleClassifier(args.input_size, args.hidden_size, num_classes=2)
 
-    # Load model weights
+    # Load model weights with weights_only=True to suppress FutureWarning
     if os.path.exists(args.model_path):
-        model.load_state_dict(torch.load(args.model_path))
+        # load the model weights
+        model.load_state_dict(torch.load(args.model_path, weights_only=True))
         print(f"Loaded model from {args.model_path}")
     else:
         raise FileNotFoundError(f"Model file not found: {args.model_path}")

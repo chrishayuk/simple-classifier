@@ -37,20 +37,21 @@ def train(model, dataloader, loss_function, optimizer, num_epochs):
 
 # Argument parsing function
 def parse_args():
-    # setup the parser
+    # Setup the parser
     parser = argparse.ArgumentParser(description="Train and evaluate a binary classifier on structured JSONL data")
 
-    # set arguments
+    # Set arguments
     parser.add_argument('--train_file', type=str, default='output/train_data.jsonl', help="Path to training data JSONL file")
     parser.add_argument('--test_file', type=str, default='output/test_data.jsonl', help="Path to test data JSONL file")
     parser.add_argument('--input_size', type=int, default=10, help="Number of input features")
-    parser.add_argument('--hidden_size', type=int, default=5, help="Number of hidden layer units")
+    parser.add_argument('--hidden_size', type=int, default=64, help="Number of units in each hidden layer")
+    parser.add_argument('--num_hidden_layers', type=int, default=5, help="Number of hidden layers in the model")
     parser.add_argument('--learning_rate', type=float, default=0.0001, help="Learning rate")
     parser.add_argument('--num_epochs', type=int, default=100, help="Number of training epochs")
     parser.add_argument('--batch_size', type=int, default=10, help="Batch size for DataLoader")
     parser.add_argument('--model_path', type=str, default='output/model.pth', help="Path to save the trained model")
 
-    # parse
+    # Parse
     return parser.parse_args()
 
 def main():
@@ -64,7 +65,12 @@ def main():
     test_dataloader = DataLoader(test_dataset, batch_size=args.batch_size, shuffle=False)
 
     # Initialize model, loss function, and optimizer
-    model = SimpleClassifier(args.input_size, args.hidden_size, num_classes=2)
+    model = SimpleClassifier(
+        input_size=args.input_size, 
+        hidden_size=args.hidden_size, 
+        num_classes=2, 
+        num_hidden_layers=args.num_hidden_layers
+    )
     loss_function = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=args.learning_rate)
 
