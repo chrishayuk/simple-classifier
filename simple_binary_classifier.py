@@ -13,7 +13,7 @@ class SimpleClassifier(nn.Module):
         layers.append(nn.Linear(input_size, hidden_size))
 
         # add the activation function, after the first layer
-        layers.append(nn.ReLU())
+        layers.append(nn.SiLU())
 
         # add a dropout layer
         layers.append(nn.Dropout(dropout_prob))

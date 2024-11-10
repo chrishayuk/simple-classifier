@@ -19,7 +19,7 @@ python evaluate.py
 ```
 
 ## activation function
-this uses a simple relu activation function, but will change this as we experiment
+this uses a silu activation function.  started with ReLU but switched to SiLU for better results
 
 ## dropout layer
 this has a single dropout layer set to 0.1 probability, applied after layer 1.
