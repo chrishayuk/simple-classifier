@@ -21,7 +21,8 @@ class SimpleClassifier(nn.Module):
         # Add the remaining hidden layers
         for _ in range(num_hidden_layers - 1):
             layers.append(nn.Linear(hidden_size, hidden_size))
-            layers.append(nn.ReLU())
+            layers.append(nn.SiLU())
+            layers.append(nn.Dropout(dropout_prob))
         
         # Output layer
         layers.append(nn.Linear(hidden_size, num_classes))

@@ -22,7 +22,7 @@ python evaluate.py
 this uses a silu activation function.  started with ReLU but switched to SiLU for better results
 
 ## dropout layer
-this has a single dropout layer set to 0.1 probability, applied after layer 1.
+this has a dropout layer set to 0.1 probability, applied after each hidden layer.
 this will essentially drop a neuron during training 10% of the time, to prevent the model overfitting.
 it helps the model not rely on particular neuron configurations
 dropout is not applied during inference
