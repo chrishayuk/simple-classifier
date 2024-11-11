@@ -1,3 +1,9 @@
+# Introduction
+This is my very simple example binary classifier.
+
+The model will take in array of features (sized at 10 features), and then will predict if the sum of the first half of the features is larger than the sum of the second half of the features.  
+
+if the sum of the first half of the features is greater than the sum of the second half of the features, it will be labeled "1", otherwise will be labelled "0"
 
 ## Data Generation
 the following will generate data for the simple binary classifier
